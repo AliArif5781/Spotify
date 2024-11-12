@@ -37,6 +37,10 @@ const PlayListSection = () => {
       setCurrentSong(song);
       setIsPlaying(savedIsPlaying === "true");
     }
+    return () => {
+      localStorage.removeItem("currentSong");
+      localStorage.removeItem("isPlaying");
+    };
   }, []);
 
   // Save state to localStorage when changes happen
@@ -46,34 +50,13 @@ const PlayListSection = () => {
     }
   }, [currentSong]);
 
-  const handleSongTrack = async (track: SongDAta) => {
+  const handleSongTrack = (track: SongDAta) => {
+    // Reset volume to avoid NaN on song change
     if (audioRef.current) {
-      // Reset states before loading new song
-      setProgress(0);
-      setCurrentTime(0);
-      setDuration(0);
-      setIsPlaying(false);
-
-      try {
-        audioRef.current.src = track.file;
-        await audioRef.current.load(); // Explicitly load the new audio
-        const playPromise = audioRef.current.play();
-
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setCurrentSong(track);
-              setIsPlaying(true);
-            })
-            .catch((error) => {
-              console.error("Error playing audio:", error);
-              setIsPlaying(false);
-            });
-        }
-      } catch (error) {
-        console.error("Error loading audio:", error);
-        setIsPlaying(false);
-      }
+      audioRef.current.src = track.file;
+      audioRef.current.play();
+      setCurrentSong(track);
+      setIsPlaying(true);
     }
   };
 
@@ -83,28 +66,25 @@ const PlayListSection = () => {
         audioRef.current.pause();
         setIsPlaying(false);
       } else {
-        const playPromise = audioRef.current.play();
-        if (playPromise !== undefined) {
-          playPromise
-            .then(() => {
-              setIsPlaying(true);
-            })
-            .catch((error) => {
-              console.error("Error playing audio:", error);
-              setIsPlaying(false);
-            });
-        }
+        audioRef.current.play();
+        setIsPlaying(true);
       }
     }
   };
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.onplay = () => setIsPlaying(true);
+      audioRef.current.onpause = () => setIsPlaying(false);
+    }
+  }, []);
 
   const handleVolumeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const volumeValue = parseFloat(e.target.value);
-    if (!isNaN(volumeValue) && volumeValue >= 0 && volumeValue <= 100) {
-      setVolume(volumeValue);
-      if (audioRef.current) {
-        audioRef.current.volume = volumeValue / 100;
-      }
+    if (!isNaN(volumeValue)) return; // Ignore invalid values
+
+    setVolume(volumeValue); // Store volume as a number in the range 0-100
+    if (audioRef.current) {
+      audioRef.current.volume = volumeValue / 100;
     }
   };
 
@@ -124,24 +104,18 @@ const PlayListSection = () => {
 
   const handleProgressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const progressValue = parseFloat(e.target.value);
-    if (!isNaN(progressValue) && progressValue >= 0 && progressValue <= 100) {
-      setProgress(progressValue);
-      if (audioRef.current && !isNaN(audioRef.current.duration)) {
-        const newTime = (progressValue / 100) * audioRef.current.duration;
-        audioRef.current.currentTime = newTime;
-        setCurrentTime(newTime);
-      }
+    setProgress(progressValue);
+    if (audioRef.current) {
+      audioRef.current.currentTime =
+        (progressValue / 100) * audioRef.current.duration;
     }
   };
 
   const handleTimeUpdate = () => {
     if (audioRef.current) {
-      const audio = audioRef.current;
-      if (!isNaN(audio.duration)) {
-        const currentProgress = (audio.currentTime / audio.duration) * 100;
-        setProgress(currentProgress);
-        setCurrentTime(audio.currentTime);
-        setDuration(audio.duration);
+      const { currentTime, duration } = audioRef.current;
+      if (duration > 0) {
+        setProgress((currentTime / duration) * 100);
       }
     }
   };
@@ -154,11 +128,11 @@ const PlayListSection = () => {
   };
 
   // Handle audio loading
-  const handleLoadedMetadata = () => {
-    if (audioRef.current) {
-      setDuration(audioRef.current.duration);
-    }
-  };
+  // const handleLoadedMetadata = () => {
+  //   if (audioRef.current) {
+  //     setDuration(audioRef.current.duration);
+  //   }
+  // };
 
   const sliderBackground = `linear-gradient(to right, #1db954 0%, #1db954 ${volume}%, #b3b3b3 ${volume}%, #b3b3b3 100%)`;
   const progressBackground = `linear-gradient(to right, #1db954 0%, #1db954 ${progress}%, #b3b3b3 ${progress}%, #b3b3b3 100%)`;
@@ -363,7 +337,7 @@ const PlayListSection = () => {
       <audio
         ref={audioRef}
         onTimeUpdate={handleTimeUpdate}
-        onLoadedMetadata={handleLoadedMetadata}
+        // onLoadedMetadata={handleLoadedMetadata}
       />
     </div>
   );
