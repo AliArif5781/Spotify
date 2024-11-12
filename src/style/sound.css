@@ -1,0 +1,51 @@
+/* Style the slider container */
+.sound input[type="range"] {
+  -webkit-appearance: none; /* Remove default styling */
+  appearance: none;
+  width: 150px; /* Slider width */
+  height: 8px; /* Slider track height */
+  background: linear-gradient(
+    to right,
+    #1db954 0%,
+    #1db954 50%,
+    #b3b3b3 50%,
+    #b3b3b3 100%
+  ); /* Green and gray background */
+  border-radius: 5px;
+  outline: none;
+  transition: background 0.3s ease; /* Smooth transition for background */
+}
+
+/* Style the slider thumb (the dot) */
+.sound input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px; /* Thumb size */
+  height: 18px; /* Thumb size */
+  border-radius: 50%; /* Round shape */
+  background: #1db954; /* Green thumb */
+  border: 2px solid #1db954; /* Green border */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Style for Firefox */
+.sound input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #1db954; /* Green thumb */
+  border: 2px solid #1db954; /* Green border */
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+/* Style for Internet Explorer */
+.sound input[type="range"]::-ms-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #1db954; /* Green thumb */
+  border: 2px solid #1db954; /* Green border */
+  cursor: pointer;
+}

@@ -1,0 +1,75 @@
+@layer utilities {
+  .black-100 {
+    background-color: "#2A2A2A";
+  }
+  .black-50 {
+    color: #f0f0f0;
+  }
+  .white-50 {
+    color: "#B3B3B3";
+  }
+  .white-100 {
+    color: "#F0F0F0";
+  }
+}
+
+.main-section {
+  // Using @apply for Tailwind CSS utilities (this is fine)
+  .one-section {
+    @apply flex justify-between items-center bg-black text-white py-3;
+
+    .logo {
+      @apply h-8 w-auto;
+    }
+
+    .Home-design {
+      @apply black-50 h-12 w-12 rounded-full flex justify-center items-center;
+      .Home-icon {
+        @apply h-7 w-10;
+      }
+    }
+
+    .SearchSection {
+      @apply flex items-center gap-5 hidden md:flex;
+
+      .search-section {
+        @apply flex items-center black-50 white-50 outline-none rounded-full transition-transform bg-black-100 duration-300 ease-in-out;
+
+        .search {
+          @apply flex pl-2;
+        }
+
+        .search-btn {
+          @apply black-50 white-50 h-10 w-[400px] rounded-full border-none outline-none pl-2 font-bold transition-transform  duration-300 ease-in-out bg-black-100;
+        }
+
+        .browser {
+          @apply flex justify-between items-center cursor-pointer;
+
+          svg {
+            @apply h-8 w-8 transition-transform duration-200 ease-in-out pr-2 text-white;
+          }
+        }
+      }
+    }
+
+    // Login-Section
+    .user-section {
+      @apply flex justify-evenly items-center gap-5 bg-black-100 p-1 rounded-full cursor-pointer;
+
+      .sign-up-section {
+        @apply bg-black text-white;
+
+        .sign-btn {
+          @apply text-balance font-semibold text-gray-400 hover:scale-105 transition-transform duration-300 ease-linear hover:text-white-100;
+        }
+      }
+
+      .login-in-section {
+        .login-btn {
+          @apply text-[17px] text-black-100 bg-white-100 py-2 px-5 rounded-full font-bold hover:scale-105 transition-transform duration-300 ease-linear;
+        }
+      }
+    }
+  }
+}

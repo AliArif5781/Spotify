@@ -1,0 +1,107 @@
+@layer utilities {
+  .black-50 {
+    color: #1f1f1f; // "A-Black"
+  }
+  .black-100 {
+    background-color: "#2A2A2A"; // "B-Black"
+  }
+  .black-150 {
+    background-color: "#121212"; // C-Black
+  }
+  .white-200 {
+    color: "#B3B3B3"; // "A-White
+  }
+  .white-100 {
+    color: "#F0F0F0"; // White
+  }
+  .white-150 {
+    color: "#FFFFFF"; // "D-White"
+  }
+  .white-200 {
+    color: "#B3B3B3"; // "E-White"
+  }
+}
+
+.section {
+  @apply flex bg-black h-[100vh];
+}
+
+.left-section {
+  @apply h-auto w-[320px] bg-C-Black p-4 rounded-xl;
+}
+
+.top-header {
+  @apply flex items-center justify-between mb-6;
+}
+
+.svg-icon {
+  @apply flex items-center;
+}
+
+.header-text {
+  @apply text-lg font-bold text-gray-400 hover:text-white px-3;
+}
+
+.playList {
+  @apply bg-black-50 rounded-lg p-5;
+}
+
+.playList-section {
+  @apply text-xl text-white-150 font-bold text-center;
+}
+
+.table {
+  @apply text-lg text-left text-white-150 whitespace-nowrap overflow-hidden text-ellipsis w-[30%];
+}
+
+.table-header {
+  @apply text-base uppercase; // Adjusted from text-md to text-base
+}
+
+.table-cell {
+  @apply py-3;
+}
+
+.text-balance {
+  @apply text-[18px];
+}
+
+.podcast-section {
+  @apply bg-black-50 rounded-lg p-5 mt-5;
+}
+
+.podcast-header {
+  @apply text-xl text-D-White font-bold;
+}
+
+.podcast-info {
+  @apply text-white-150 text-[18px];
+}
+
+.podcast-button {
+  @apply bg-white-150 p-2 px-3 rounded-full font-bold;
+}
+
+.footer-links {
+  @apply text-white-200 text-[11px] py-3;
+}
+
+.footer-link {
+  @apply flex space-x-4;
+}
+
+.language-selector {
+  @apply pt-5 duration-150 px-2 cursor-pointer;
+}
+
+.language-button {
+  @apply border border-gray-600 hover:border-white-150 bg-black-150 w-28 flex items-center space-x-4 p-2 rounded-full transition-transform duration-150 hover:scale-105;
+}
+
+.globe-icon {
+  @apply text-white-150;
+}
+
+.language-text {
+  @apply text-white-150 font-bold;
+}
