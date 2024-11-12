@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Search, UserRound } from "lucide-react";
+import React, { useState } from "react";
+import { UserRound } from "lucide-react";
 import { Link } from "react-router-dom";
 import img2 from "/spotifylogo1.webp";
 import img1 from "/spotify.png";
