@@ -9,6 +9,7 @@ const PlayListData = () => {
   const AlbumNavigate = (id: Number) => {
     navigate(`/album/${id}`);
   };
+
   return (
     <div className="rightSection custom_scrollbar h-[100vh] overflow-auto max-w-max pb-[100px] mx-4 rounded-xl p-6 transition-all bg-black-200 flex justify-center">
       <div className="w-full">
