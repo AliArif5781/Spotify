@@ -37,6 +37,10 @@ const DisplayAlbumData = () => {
       setCurrentSong(song);
       setIsPlaying(savedIsPlaying === "true");
     }
+    return () => {
+      localStorage.removeItem("currentSong");
+      localStorage.removeItem("isPlaying");
+    };
   }, []);
 
   // Save state to localStorage when changes happen
@@ -121,12 +125,12 @@ const DisplayAlbumData = () => {
 
   return (
     <div className="rightSection custom-scrollbar h-[100vh] overflow-y-auto w-full pb-[100px] p-6 transition-all bg-black-100">
-      <div className="px-5 sm:py-9 grid grid-cols-0 sm:grid-cols-2">
+      <div className="px-5 sm:py-9 grid grid-cols-0 sm:grid-cols-2  ">
         {data.map((item: AlbimChart) => (
           <div key={item.id} className=" flex justify-start items-start py-12 ">
             <div className="container max-w-screen-lg px-6 py-12 mx-auto">
               {/* Album Info Section */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 items-start">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
                 {/* Album Image */}
                 <div className="flex justify-center mb-6 sm:mb-0">
                   <img
@@ -137,7 +141,7 @@ const DisplayAlbumData = () => {
                 </div>
 
                 {/* Album Text Info */}
-                <div className="flex flex-col space-y-6">
+                <div className="flex flex-col px-10 space-y-6">
                   <p className="text-sm uppercase text-gray-400 tracking-wider">
                     {item.type}
                   </p>
