@@ -25,7 +25,7 @@ const SongSection = () => {
       // Stop the currently playing song
       audioRef.current.pause();
       dispatch(setIsPlaying(false));
-      // dispatch(setProgress(0)); // Reset progress when changing song
+      dispatch(setProgress(0)); // Reset progress when changing song
 
       // Set up and play the new song
       audioRef.current.src = song.file;
