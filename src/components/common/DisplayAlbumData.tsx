@@ -19,6 +19,8 @@ const DisplayAlbumData = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [progress, setProgress] = useState(0); // Progress in percentage (0-100)
   const [volume, setVolume] = useState(50); // volume in range 0-100
+  const [currentTime, setCurrentTime] = useState("0:00"); // Current time of song
+  const [totalTime, setTotalTime] = useState("0:00"); // Total duration of song
 
   const { id } = useParams();
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -27,12 +29,10 @@ const DisplayAlbumData = () => {
   const data = useMemo(() => {
     return albumsData.filter((item: AlbimChart) => item.id === albumId);
   }, [albumId, albumsData]);
-  // UseEffect to check if there's a previously saved song and state
 
-  // Ensure volume is set properly on song change
   useEffect(() => {
     if (audioRef.current) {
-      audioRef.current.volume = volume / 100; // Set the volume from state (volume in range 0-100)
+      audioRef.current.volume = volume / 100;
     }
   }, [volume]);
 
@@ -96,11 +96,19 @@ const DisplayAlbumData = () => {
     }
   };
 
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = Math.floor(seconds % 60);
+    return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+  };
+
   const handleTimeUpdate = () => {
     if (audioRef.current) {
       const { currentTime, duration } = audioRef.current;
       if (duration > 0) {
         setProgress((currentTime / duration) * 100);
+        setCurrentTime(formatTime(currentTime));
+        setTotalTime(formatTime(duration));
       }
     }
   };
@@ -132,39 +140,39 @@ const DisplayAlbumData = () => {
 
   return (
     <div className="rightSection custom-scrollbar h-[100vh] overflow-y-auto w-full pb-[100px] p-6 transition-all bg-black-100">
-      <div className="px-5 sm:py-9 grid grid-cols-0 sm:grid-cols-2  ">
+      <div className="px-5 sm:py-9 grid grid-cols-1 sm:grid-cols-1">
         {data.map((item: AlbimChart) => (
-          <div key={item.id} className=" flex justify-start items-start py-12 ">
-            <div className="container max-w-screen-lg px-6 py-12 mx-auto">
+          <div key={item.id} className="flex justify-center items-center py-8">
+            <div className="container max-w-screen-lg px-6 mx-auto">
               {/* Album Info Section */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  ">
+              <div className="flex flex-col lg:flex-row items-center lg:items-start lg:space-x-8">
                 {/* Album Image */}
-                <div className="flex justify-center mb-6 sm:mb-0">
+                <div className="flex justify-center lg:justify-start lg:mr-8 lg:w-1/3">
                   <img
                     src={item.image}
                     alt={`${item.name} cover`}
-                    className="w-full h-[300px] sm:h-[350px] object-cover bg-cover rounded-lg shadow-lg transition-transform duration-300"
+                    className="max-w-full h-auto object-contain w-64 md:w-48 lg:w-64"
                     loading="lazy"
                   />
                 </div>
 
                 {/* Album Text Info */}
-                <div className="flex flex-col px-10 space-y-6">
+                <div className="flex flex-col justify-center items-center lg:items-start px-6 md:px-10 space-y-4 lg:w-2/3 text-left">
                   <p className="text-sm uppercase text-gray-400 tracking-wider">
                     {item.type}
                   </p>
-                  <h1 className="text-3xl sm:text-4xl font-extrabold text-white mb-5">
+                  <h1 className="text-3xl sm:text-4xl font-extrabold text-white lg:text-left text-center">
                     {item.name}
                   </h1>
 
                   {/* Spotify Logo and Info */}
-                  <div className="flex items-center space-x-4 mb-6">
-                    <img src={img} alt="Spotify Logo" className="w-10 h-10" />
-                    <p className="text-xl text-white font-medium">Spotify</p>
+                  <div className="flex items-center space-x-3">
+                    <img src={img} alt="Spotify Logo" className="w-8 h-8" />
+                    <p className="text-lg text-white font-medium">Spotify</p>
                   </div>
 
                   {/* Song Count and Duration */}
-                  <div className="text-md text-gray-300">
+                  <div className="text-sm text-gray-300">
                     <p>
                       <strong>Number of Songs:</strong> {item.song}
                     </p>
@@ -190,10 +198,10 @@ const DisplayAlbumData = () => {
               <th scope="col" className="px-6 py-3">
                 Title
               </th>
-              <th scope="col" className="px-6 py-3 hidden sm:flex">
+              <th scope="col" className="px-6 py-3 hidden sm:table-cell">
                 Date Added
               </th>
-              <th scope="col" className="px-6 py-3 text-gray-500">
+              <th scope="col" className="px-6 py-3">
                 Duration
               </th>
             </tr>
@@ -202,7 +210,7 @@ const DisplayAlbumData = () => {
             {songsData.length > 0 ? (
               songsData.map((track, index) => (
                 <tr
-                  key={`${track.id}`}
+                  key={track.id}
                   className="hover:bg-gray-600 hover:rounded-lg"
                   onClick={() => handleSongTrack(track)}
                 >
@@ -217,13 +225,15 @@ const DisplayAlbumData = () => {
                         alt={track.name}
                       />
                       <div className="px-5 cursor-pointer">
-                        <p className="text-md text-White font-bold">
+                        <p className="text-md text-white font-bold">
                           {track.name}
                         </p>
                       </div>
                     </div>
                   </td>
-                  <td className="px-6 py-4 hidden sm:flex">{track.date}</td>
+                  <td className="px-6 py-4 hidden sm:table-cell">
+                    {track.date}
+                  </td>
                   <td className="px-6 py-4">{track.duration}</td>
                 </tr>
               ))
@@ -274,7 +284,7 @@ const DisplayAlbumData = () => {
                   </button>
                 </div>
                 <div className="w-full flex items-center space-x-2">
-                  <span className="text-xs text-gray-400">0:00</span>
+                  <span className="text-xs text-gray-400">{currentTime}</span>
                   <input
                     type="range"
                     min="0"
@@ -283,7 +293,7 @@ const DisplayAlbumData = () => {
                     onChange={handleProgressChange}
                     className="flex-grow h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer"
                   />
-                  <span className="text-xs text-gray-400">3:45</span>
+                  <span className="text-xs text-gray-400">{totalTime}</span>
                 </div>
               </div>
 
