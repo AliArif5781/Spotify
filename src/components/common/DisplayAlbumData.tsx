@@ -2,7 +2,13 @@ import { useParams } from "react-router-dom";
 import { albumsData, songsData } from "../../assets/assets";
 import { AlbimChart, SongDAta } from "../../types/type";
 import img from "/Spotify_Primary_Logo.png";
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { FaPlay } from "react-icons/fa6";
 import { IoMdPause } from "react-icons/io";
 import "../../style/sound.css";
@@ -17,8 +23,10 @@ const DisplayAlbumData = () => {
   const { id } = useParams();
   const audioRef = useRef<HTMLAudioElement>(null);
   const albumId = id ? parseInt(id) : NaN;
-  const data = albumsData.filter((item: AlbimChart) => item.id === albumId);
 
+  const data = useMemo(() => {
+    return albumsData.filter((item: AlbimChart) => item.id === albumId);
+  }, [albumId, albumsData]);
   // UseEffect to check if there's a previously saved song and state
 
   // Ensure volume is set properly on song change
@@ -50,17 +58,16 @@ const DisplayAlbumData = () => {
     }
   }, [currentSong]);
 
-  const handleSongTrack = (track: SongDAta) => {
-    // Reset volume to avoid NaN on song change
+  const handleSongTrack = useCallback((track: SongDAta) => {
     if (audioRef.current) {
       audioRef.current.src = track.file;
       audioRef.current.play();
       setCurrentSong(track);
       setIsPlaying(true);
     }
-  };
+  }, []); // Empty dependency array means this function won't change after initial render
 
-  const togglePlayPause = () => {
+  const tooglePlayPause = useCallback(() => {
     if (audioRef.current) {
       if (isPlaying) {
         audioRef.current.pause();
@@ -70,7 +77,7 @@ const DisplayAlbumData = () => {
         setIsPlaying(true);
       }
     }
-  };
+  }, [isPlaying]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -137,6 +144,7 @@ const DisplayAlbumData = () => {
                     src={item.image}
                     alt={`${item.name} cover`}
                     className="w-full h-[300px] sm:h-[350px] object-cover bg-cover rounded-lg shadow-lg transition-transform duration-300"
+                    loading="lazy"
                   />
                 </div>
 
@@ -255,7 +263,7 @@ const DisplayAlbumData = () => {
               <div className="flex flex-col items-center justify-center space-y-2">
                 <div className="flex items-center justify-center space-x-4">
                   <button
-                    onClick={togglePlayPause}
+                    onClick={tooglePlayPause}
                     className="p-2 text-white hover:scale-110 transition-transform"
                   >
                     {isPlaying ? (
