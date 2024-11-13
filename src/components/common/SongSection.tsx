@@ -86,6 +86,14 @@ const SongSection = () => {
     }
   }, [volume]);
 
+  // Save state to localStorage when changes happen
+  useEffect(() => {
+    if (currentSong) {
+      localStorage.removeItem("currentSong");
+      localStorage.setItem("currentSong", JSON.stringify(currentSong));
+    }
+  }, [currentSong]);
+
   return (
     <div className="w-full pb-[100px]">
       <h1 className="text-3xl font-bold text-white mb-6 p-3">
