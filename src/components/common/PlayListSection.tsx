@@ -1,14 +1,14 @@
 import { Globe, ChevronRight, ChevronLeft } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PlayListData from "./PlayListData";
 import { albumsData } from "../../assets/assets";
-import { AlbimChart } from "../../types/type";
+import { AlbimChart, SongDAta } from "../../types/type";
 import { useNavigate } from "react-router-dom";
 
 const PlayListSection = () => {
   const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(false);
-  // const [currentSong, setCurrentSong] = useState<SongDAta | null>(null);
-  // const [isPlaying, setIsPlaying] = useState(false);
+  const [currentSong, setCurrentSong] = useState<SongDAta | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   const navigate = useNavigate();
   console.log("albumsdata", albumsData);
@@ -17,27 +17,27 @@ const PlayListSection = () => {
     setIsLeftSectionVisible(!isLeftSectionVisible);
   };
 
-  // useEffect(() => {
-  //   const savedSong = localStorage.getItem("currentSong");
-  //   const savedIsPlaying = localStorage.getItem("isPlaying");
+  useEffect(() => {
+    const savedSong = localStorage.getItem("currentSong");
+    const savedIsPlaying = localStorage.getItem("isPlaying");
 
-  //   if (savedSong) {
-  //     const song = JSON.parse(savedSong);
-  //     setCurrentSong(song);
-  //     setIsPlaying(savedIsPlaying === "true");
-  //   }
-  //   return () => {
-  //     localStorage.removeItem("currentSong");
-  //     localStorage.removeItem("isPlaying");
-  //   };
-  // }, []);
+    if (savedSong) {
+      const song = JSON.parse(savedSong);
+      setCurrentSong(song);
+      setIsPlaying(savedIsPlaying === "true");
+    }
+    return () => {
+      localStorage.removeItem("currentSong");
+      localStorage.removeItem("isPlaying");
+    };
+  }, []);
 
   // Save state to localStorage when changes happen
-  // useEffect(() => {
-  //   if (currentSong) {
-  //     localStorage.setItem("currentSong", JSON.stringify(currentSong));
-  //   }
-  // }, [currentSong]);
+  useEffect(() => {
+    if (currentSong) {
+      localStorage.setItem("currentSong", JSON.stringify(currentSong));
+    }
+  }, [currentSong]);
 
   const AlbumNavigate = (id: Number) => {
     navigate(`/album/${id}`);
