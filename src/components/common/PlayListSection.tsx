@@ -12,6 +12,7 @@ const PlayListSection = () => {
 
   const navigate = useNavigate();
   console.log("albumsdata", albumsData);
+  console.log(isPlaying);
 
   const toggleLeftSection = () => {
     setIsLeftSectionVisible(!isLeftSectionVisible);
