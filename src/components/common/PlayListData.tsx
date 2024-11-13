@@ -2,8 +2,9 @@ import { useNavigate } from "react-router-dom";
 import { albumsData } from "../../assets/assets";
 import { AlbimChart } from "../../types/type";
 import SongSection from "./SongSection"; // Import SongSection component
+import { memo } from "react";
 
-const PlayListData = () => {
+const PlayListData = memo(() => {
   const navigate = useNavigate();
 
   const AlbumNavigate = (id: Number) => {
@@ -31,6 +32,7 @@ const PlayListData = () => {
                 src={albumData.image}
                 alt={albumData.name}
                 className="h-[200px] w-full object-contain group-hover:opacity-80 transition-all duration-300 rounded-xl"
+                loading="lazy"
               />
 
               {/* Overlay Effect (Optional) */}
@@ -54,6 +56,6 @@ const PlayListData = () => {
       </div>
     </div>
   );
-};
+});
 
 export default PlayListData;
