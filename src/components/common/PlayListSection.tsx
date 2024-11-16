@@ -4,6 +4,8 @@ import PlayListData from "./PlayListData";
 import { albumsData } from "../../assets/assets";
 import { AlbimChart, SongDAta } from "../../types/type";
 import { useNavigate } from "react-router-dom";
+import { setAddSong } from "../../features/Song/AddSongSlice";
+import { useDispatch } from "react-redux";
 
 const PlayListSection = () => {
   const [isLeftSectionVisible, setIsLeftSectionVisible] = useState(false);
@@ -11,6 +13,8 @@ const PlayListSection = () => {
   const [isPlaying, setIsPlaying] = useState(false);
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   console.log("albumsdata", albumsData);
   console.log(isPlaying);
 
@@ -40,8 +44,10 @@ const PlayListSection = () => {
     }
   }, [currentSong]);
 
-  const AlbumNavigate = (id: Number) => {
-    navigate(`/album/${id}`);
+  const AlbumNavigate = (id: AlbimChart) => {
+    dispatch(setAddSong(id));
+    // localStorage.setItem("PlayListData", JSON.stringify(song));
+    navigate("/albumSong");
   };
   return (
     <div>
@@ -102,7 +108,7 @@ const PlayListSection = () => {
                     key={track.id}
                     className="flex items-center p-2 hover:bg-gray-800 rounded-lg cursor-pointer"
                     // onClick={() => handleSongTrack(track)}
-                    onClick={() => AlbumNavigate(track.id)}
+                    onClick={() => AlbumNavigate(track)}
                   >
                     <div className="w-12 text-center text-gray-400">
                       {index + 1}
