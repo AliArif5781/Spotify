@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { UserRound } from "lucide-react";
+import { UserRound, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import img2 from "/spotifylogo1.webp";
 import img1 from "/spotify.png";
@@ -22,7 +22,6 @@ const Navbar = () => {
     setUserName(e.target.value);
   };
 
-  // Clear name functionality
   const handleClearName = () => {
     localStorage.removeItem("name");
     setUserName("");
@@ -43,27 +42,38 @@ const Navbar = () => {
             <img src={img2} alt="" className="h-16" />
           </div>
 
-          {/* User section */}
-          <div className="user-section flex items-center">
-            <div
-              onClick={() => setIsDialogOpen(true)}
-              className="cursor-pointer relative group"
+          {/* Navbar links */}
+          <div className="flex items-center space-x-4">
+            {/* Wishlist Link */}
+            <Link
+              to="/wishlistpage"
+              className="text-white hover:text-red-700 transition-colors"
             >
-              {isNameSet ? (
-                <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white font-semibold hover:bg-green-700 transition-colors">
-                  {userName.charAt(0).toUpperCase()}
-                </div>
-              ) : (
-                <div className="login-in-section p-1 rounded-full hover:bg-gray-100">
-                  <UserRound />
-                </div>
-              )}
-              {/* Tooltip */}
-              {isNameSet && (
-                <div className="absolute hidden group-hover:block top-full mt-1 right-0 bg-gray-800 text-white text-sm py-1 px-2 rounded whitespace-nowrap">
-                  {userName}
-                </div>
-              )}
+              <Heart />
+            </Link>
+
+            {/* User section */}
+            <div className="user-section flex items-center">
+              <div
+                onClick={() => setIsDialogOpen(true)}
+                className="cursor-pointer relative group"
+              >
+                {isNameSet ? (
+                  <div className="w-8 h-8 rounded-full bg-green-600 flex items-center justify-center text-white font-semibold hover:bg-green-700 transition-colors">
+                    {userName.charAt(0).toUpperCase()}
+                  </div>
+                ) : (
+                  <div className="login-in-section p-1 rounded-full hover:bg-gray-100">
+                    <UserRound />
+                  </div>
+                )}
+                {/* Tooltip */}
+                {isNameSet && (
+                  <div className="absolute hidden group-hover:block top-full mt-1 right-0 bg-gray-800 text-white text-sm py-1 px-2 rounded whitespace-nowrap">
+                    {userName}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
