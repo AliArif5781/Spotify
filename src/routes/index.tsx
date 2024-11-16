@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../components/Layout/MainLayout";
-import Error from "../components/common/Error";
 import PlayListSection from "../components/common/PlayListSection";
 import AlbumSongData from "../components/common/AlbumSongData";
 import WishlistPage from "../components/common/WishlistPage";
@@ -9,7 +8,6 @@ const router = createBrowserRouter([
   {
     path: "",
     element: <MainLayout />,
-    errorElement: <Error />,
     children: [
       {
         path: "",
