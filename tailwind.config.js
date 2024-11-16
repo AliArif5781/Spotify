@@ -14,6 +14,7 @@ export default {
         "black-100": "#2A2A2A",
         "black-150": "#121212",
         "black-200": "#1E1E1E",
+        "black-250": "#000000",
         "white-50": "#B3B3B3",
         "white-100": "#F0F0F0",
         "white-150": "#FFFFFF",
