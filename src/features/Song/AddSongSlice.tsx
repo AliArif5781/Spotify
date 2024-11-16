@@ -6,12 +6,16 @@ interface SongData {
   selectSong: SongDAta | null;
   SavedSong: SongDAta | null;
   favouritesong: SongDAta[];
+  // currentSong: SongDAta | null; // Track current playing song
+  // isPlaying: boolean; // Track playing state
 }
 const initialState: SongData = {
   addSong: null,
   selectSong: null,
   SavedSong: null,
   favouritesong: [],
+  // currentSong: null,
+  // isPlaying: false,
 };
 
 export const AddSong = createSlice({
