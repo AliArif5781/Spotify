@@ -1,14 +1,24 @@
 import { useNavigate } from "react-router-dom";
 import { albumsData } from "../../assets/assets";
 import { AlbimChart } from "../../types/type";
-import SongSection from "./SongSection"; // Import SongSection component
 import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setAddSong } from "../../features/Song/AddSongSlice";
+import { RootState } from "../../app/store";
 
 const PlayListData = memo(() => {
+  const dispatch = useDispatch();
+  const abc = useSelector((state: RootState) => state.add.addSong);
+  // console.log("abc", abc);
+
   const navigate = useNavigate();
 
-  const AlbumNavigate = (id: Number) => {
-    navigate(`/album/${id}`);
+  // const AlbumNavigate = (id: Number) => {
+  // };
+  const AlbumDatas = (song: AlbimChart) => {
+    dispatch(setAddSong(song));
+    // localStorage.setItem("PlayListData", JSON.stringify(song));
+    navigate("/albumSong");
   };
 
   return (
@@ -25,7 +35,8 @@ const PlayListData = memo(() => {
             <div
               key={albumData.id}
               className="album-card mb-6 group relative hover:shadow-2xl rounded-lg overflow-hidden"
-              onClick={() => AlbumNavigate(albumData.id)}
+              // onClick={() => AlbumNavigate(albumData.id)}
+              onClick={() => AlbumDatas(albumData)}
             >
               {/* Album Image with Hover Effect */}
               <img
@@ -50,9 +61,6 @@ const PlayListData = memo(() => {
             </div>
           ))}
         </div>
-
-        {/* Include the SongSection component */}
-        <SongSection />
       </div>
     </div>
   );
