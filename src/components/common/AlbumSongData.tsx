@@ -10,7 +10,7 @@ import {
 import { songsData } from "../../assets/assets";
 import img from "/Spotify_Primary_Logo.png";
 import "../../style/scroller.css";
-import { Heart, Play, Pause } from "lucide-react";
+import { Heart, Play, Pause, HeartPulse } from "lucide-react";
 
 const AlbumSongData = () => {
   const dispatch = useDispatch();
@@ -19,6 +19,9 @@ const AlbumSongData = () => {
     (state: RootState) => state.add.addSong
   ) as AlbimChart;
 
+  const favouritesong = useSelector(
+    (state: RootState) => state.add.favouritesong
+  ); // This is an array of songs in the favorites list
   const currentSong = useSelector(
     (state: RootState) => state.add.selectSong
   ) as SongDAta | null;
@@ -42,6 +45,12 @@ const AlbumSongData = () => {
 
   const handleAddToFavorite = (track: SongDAta) => {
     dispatch(addFavouriteSong(track)); // Add to favorites
+  };
+
+  // Function to check if a song is in the favourites list
+  // This function uses the .some() method to check if any song in the favouritesong array matches the track.id.
+  const isFavourite = (trackId: any) => {
+    return favouritesong.some((song) => song.id === trackId);
   };
 
   return (
@@ -145,7 +154,7 @@ const AlbumSongData = () => {
                       onClick={() => handleAddToFavorite(track)} // Add to favorite
                       className="rounded-lg text-white-50 transition-all duration-300"
                     >
-                      <Heart />
+                      {isFavourite(track.id) ? <HeartPulse /> : <Heart />}
                     </button>
                   </td>
                   <td>{currentSong?.id === track.id ? <Pause /> : <Play />}</td>
