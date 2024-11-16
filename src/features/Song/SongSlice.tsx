@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { SongDAta } from "../../types/type";
 
-// Define a type for the slice state
 interface SongState {
   currentSong: SongDAta | null;
   isPlaying: boolean;
@@ -16,11 +15,11 @@ const initialState: SongState = {
   progress: 0,
 };
 
-export const songSlice = createSlice({
+const songSlice = createSlice({
   name: "song",
   initialState,
   reducers: {
-    setCurrentSong: (state, action: PayloadAction<SongDAta | null>) => {
+    setCurrentSong: (state, action: PayloadAction<SongDAta>) => {
       state.currentSong = action.payload;
     },
     setIsPlaying: (state, action: PayloadAction<boolean>) => {
