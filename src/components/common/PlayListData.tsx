@@ -2,19 +2,17 @@ import { useNavigate } from "react-router-dom";
 import { albumsData } from "../../assets/assets";
 import { AlbimChart } from "../../types/type";
 import { memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setAddSong } from "../../features/Song/AddSongSlice";
-import { RootState } from "../../app/store";
+// import { RootState } from "../../app/store";
 
 const PlayListData = memo(() => {
   const dispatch = useDispatch();
-  const abc = useSelector((state: RootState) => state.add.addSong);
+  // const abc = useSelector((state: RootState) => state.add.addSong);
   // console.log("abc", abc);
 
   const navigate = useNavigate();
 
-  // const AlbumNavigate = (id: Number) => {
-  // };
   const AlbumDatas = (song: AlbimChart) => {
     dispatch(setAddSong(song));
     // localStorage.setItem("PlayListData", JSON.stringify(song));
