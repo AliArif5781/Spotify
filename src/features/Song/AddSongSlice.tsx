@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AlbimChart, SongDAta } from "../../types/type";
-import { songsData } from "../../assets/assets";
 interface SongData {
   addSong: AlbimChart | SongData | null;
   selectSong: SongDAta | null;
@@ -64,6 +63,12 @@ export const AddSong = createSlice({
         JSON.stringify(state.favouritesong)
       );
     },
+    // setCurrentSong: (state, action: PayloadAction<SongDAta>) => {
+    //   state.currentSong = action.payload;
+    // },
+    // setPlaying: (state, action: PayloadAction<boolean>) => {
+    //   state.isPlaying = action.payload;
+    // },
   },
 });
 export const {
@@ -72,5 +77,7 @@ export const {
   SavedSongData,
   addFavouriteSong,
   removeFromFavourite,
+  // setCurrentSong,
+  // setPlaying,
 } = AddSong.actions;
 export default AddSong.reducer;
