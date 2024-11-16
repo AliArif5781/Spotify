@@ -2,7 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../components/Layout/MainLayout";
 import Error from "../components/common/Error";
 import PlayListSection from "../components/common/PlayListSection";
-import DisplayAlbumData from "../components/common/DisplayAlbumData";
+import AlbumSongData from "../components/common/AlbumSongData";
+import WishlistPage from "../components/common/WishlistPage";
 
 const router = createBrowserRouter([
   {
@@ -15,8 +16,13 @@ const router = createBrowserRouter([
         element: <PlayListSection />,
       },
       {
-        path: "album/:id",
-        element: <DisplayAlbumData />,
+        path: "albumSong",
+        // element: <DisplayAlbumData />,
+        element: <AlbumSongData />,
+      },
+      {
+        path: "wishlistpage",
+        element: <WishlistPage />,
       },
     ],
   },
