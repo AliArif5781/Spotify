@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import songReducer from "../features/Song/SongSlice";
+import AddReducer from "../features/Song/AddSongSlice";
 const store = configureStore({
   reducer: {
     song: songReducer,
+    add: AddReducer,
   },
 });
 // Infer the `RootState` and `AppDispatch` types from the store itself
