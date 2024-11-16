@@ -10,8 +10,7 @@ import {
 import { songsData } from "../../assets/assets";
 import img from "/Spotify_Primary_Logo.png";
 import "../../style/scroller.css";
-import { Link } from "react-router-dom";
-import { Heart } from "lucide-react";
+import { Heart, Play, Pause } from "lucide-react";
 
 const AlbumSongData = () => {
   const dispatch = useDispatch();
@@ -19,6 +18,10 @@ const AlbumSongData = () => {
   const albumData = useSelector(
     (state: RootState) => state.add.addSong
   ) as AlbimChart;
+
+  const currentSong = useSelector(
+    (state: RootState) => state.add.selectSong
+  ) as SongDAta | null;
 
   useEffect(() => {
     const storedAlbumData = localStorage.getItem("PlayListData");
@@ -34,13 +37,13 @@ const AlbumSongData = () => {
   }
 
   const handleSongTrack = (track: SongDAta) => {
-    // console.log(track);
-    dispatch(songData(track));
+    dispatch(songData(track)); // Set selected song in Redux
   };
 
   const handleAddToFavorite = (track: SongDAta) => {
-    dispatch(addFavouriteSong(track));
+    dispatch(addFavouriteSong(track)); // Add to favorites
   };
+
   return (
     <div className="rightSection h-[100vh] overflow-y-auto pb-[100px] p-6 transition-all bg-black-100">
       <div className="px-5 sm:py-9 grid grid-cols-1 sm:grid-cols-1">
@@ -79,7 +82,6 @@ const AlbumSongData = () => {
                     <strong>Total Duration:</strong> {albumData.duration}
                   </p>
                 </div>
-                {/*  */}
               </div>
             </div>
           </div>
@@ -104,6 +106,7 @@ const AlbumSongData = () => {
                 Duration
               </th>
               <th>Favourite</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
@@ -111,7 +114,9 @@ const AlbumSongData = () => {
               songsData.map((track, index) => (
                 <tr
                   key={track.id}
-                  className="hover:bg-gray-600 hover:rounded-lg"
+                  className={`hover:bg-gray-600 hover:rounded-lg ${
+                    currentSong?.id === track.id ? "bg-gray-700" : ""
+                  }`} // Highlight current song
                   onClick={() => handleSongTrack(track)}
                 >
                   <td className="px-6 py-4 font-medium whitespace-nowrap">
@@ -138,11 +143,12 @@ const AlbumSongData = () => {
                   <td className="px-6 py-4">
                     <button
                       onClick={() => handleAddToFavorite(track)} // Add to favorite
-                      className=" rounded-lg text-white-50 transition-all duration-300"
+                      className="rounded-lg text-white-50 transition-all duration-300"
                     >
                       <Heart />
                     </button>
                   </td>
+                  <td>{currentSong?.id === track.id ? <Pause /> : <Play />}</td>
                 </tr>
               ))
             ) : (
