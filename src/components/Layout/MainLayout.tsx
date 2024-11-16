@@ -1,3 +1,4 @@
+import Footer from "../common/Footer";
 import Navbar from "../common/Navbar";
 import { Outlet } from "react-router-dom";
 
@@ -6,7 +7,7 @@ const MainLayout = () => {
     <div>
       <Navbar />
       <Outlet />
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 };
