@@ -6,6 +6,7 @@ import { FaPlay } from "react-icons/fa6";
 import { Volume2, VolumeX } from "lucide-react";
 import { SongDAta } from "../../types/type";
 import { SavedSongData } from "../../features/Song/AddSongSlice";
+import "../../style/sound.css";
 const Footer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(50);
@@ -94,6 +95,8 @@ const Footer = () => {
     return null; // If no song data, don't render the footer
   }
 
+  const sliderBackground = `linear-gradient(to right, #1db954 0%, #1db954 ${volume}%, #b3b3b3 ${volume}%, #b3b3b3 100%)`;
+
   return (
     <>
       {/* Audio element */}
@@ -108,7 +111,7 @@ const Footer = () => {
         }
       />
 
-      <footer className="rightSection fixed bottom-0 left-0 right-0 bg-gradient-to-b from-gray-900 to-black border-t border-gray-800 h-24 mt-[100px]">
+      <footer className="rightSection fixed bottom-0 left-0 right-0 bg-black-300 from-gray-900 to-black border-t border-gray-800 h-24 mt-[100px]">
         <div className="max-w-screen-2xl mx-auto px-4 h-full">
           <div className="grid grid-cols-3 h-full items-center gap-4">
             {/* Song Info */}
@@ -157,7 +160,7 @@ const Footer = () => {
             </div>
 
             {/* Volume Controls */}
-            <div className="flex justify-end items-center space-x-3">
+            <div className=" flex justify-end items-center space-x-3">
               <button
                 onClick={handleVolumeToggle} // This button toggles volume mute/unmute
                 className="text-gray-400 hover:text-white"
@@ -168,14 +171,15 @@ const Footer = () => {
                   <Volume2 className="w-6 h-6" /> // Show unmute icon when volume is not 0
                 )}
               </button>
-              <div className=" w-24 flex items-center">
+              <div className="sound w-24 flex items-center">
                 <input
                   type="range"
                   min="0"
                   max="100"
                   value={volume}
                   onChange={handleVolumeChange}
-                  className="w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer"
+                  style={{ background: sliderBackground }} // Apply dynamic background
+                  className=" w-full h-1 bg-gray-600 rounded-lg appearance-none cursor-pointer"
                 />
               </div>
             </div>
