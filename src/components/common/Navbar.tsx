@@ -33,9 +33,9 @@ const Navbar = () => {
       <div className="main-section">
         <div className="one-section flex items-center justify-between p-4">
           {/* Logo */}
-          <Link to="/" className="spotify-logo">
+          <div className="spotify-logo opacity-0">
             <img src={img1} alt="Spotify-logo" className="h-8" />
-          </Link>
+          </div>
 
           {/* Center logo */}
           <div>
@@ -63,7 +63,7 @@ const Navbar = () => {
                     {userName.charAt(0).toUpperCase()}
                   </div>
                 ) : (
-                  <div className="login-in-section p-1 rounded-full hover:bg-gray-100">
+                  <div className="login-in-section p-1 rounded-full hover:bg-black-200">
                     <UserRound />
                   </div>
                 )}
