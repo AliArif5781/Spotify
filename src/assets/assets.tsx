@@ -79,7 +79,6 @@ export const albumsData = [
     bgColor: "#2a4365",
     type: "PlayList",
     song: 8,
-    duration: 120000,
     date: 11 / 11 / 2024,
   },
   {
@@ -90,7 +89,6 @@ export const albumsData = [
     bgColor: "#22543d",
     type: "PlayList",
     song: 8,
-    duration: 120000,
     date: 11 / 11 / 2024,
   },
   {
@@ -101,7 +99,6 @@ export const albumsData = [
     bgColor: "#742a2a",
     type: "PlayList",
     song: 8,
-    duration: 120000,
     date: 11 / 11 / 2024,
   },
   {
@@ -112,7 +109,6 @@ export const albumsData = [
     bgColor: "#44337a",
     type: "PlayList",
     song: 8,
-    duration: 120000,
     date: 11 / 11 / 2024,
   },
   {
@@ -123,7 +119,6 @@ export const albumsData = [
     bgColor: "#234e52",
     type: "PlayList",
     song: 8,
-    duration: 120000,
     date: 11 / 11 / 2024,
   },
   {
@@ -134,7 +129,6 @@ export const albumsData = [
     bgColor: "#744210",
     type: "PlayList",
     song: 8,
-    duration: 120000,
     date: 11 / 11 / 2024,
   },
 ];
