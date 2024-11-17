@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AlbimChart, SongDAta } from "../../types/type";
+
 interface SongData {
   addSong: AlbimChart | SongData | null;
   selectSong: SongDAta | null;
@@ -8,11 +9,12 @@ interface SongData {
   // currentSong: SongDAta | null; // Track current playing song
   // isPlaying: boolean; // Track playing state
 }
+const savedFavouriteSong = localStorage.getItem("favouriteSong");
 const initialState: SongData = {
   addSong: null,
   selectSong: null,
   SavedSong: null,
-  favouritesong: [],
+  favouritesong: savedFavouriteSong ? JSON.parse(savedFavouriteSong) : [],
   // currentSong: null,
   // isPlaying: false,
 };
