@@ -10,7 +10,8 @@ import {
 import { songsData } from "../../assets/assets";
 import img from "/Spotify_Primary_Logo.png";
 import "../../style/scroller.css";
-import { Heart, Play, Pause, HeartPulse } from "lucide-react";
+import { Heart, Play, Pause } from "lucide-react";
+import { IoMdHeart } from "react-icons/io";
 
 const AlbumSongData = () => {
   const dispatch = useDispatch();
@@ -54,7 +55,7 @@ const AlbumSongData = () => {
   };
 
   return (
-    <div className="rightSection h-[100vh] overflow-y-auto pb-[100px] p-6 transition-all bg-black-100">
+    <div className="rightSection h-[100%] w-[900px] max-w-[1200px] m-auto  pb-[100px] p-6 transition-all bg-black-100">
       <div className="px-5 sm:py-9 grid grid-cols-1 sm:grid-cols-1">
         <div
           key={albumData.id}
@@ -66,8 +67,9 @@ const AlbumSongData = () => {
                 <img
                   src={albumData.image}
                   alt={`${albumData.name} cover`}
-                  className="max-w-full h-auto object-contain w-64 md:w-48 lg:w-64"
+                  className=" h-auto object-contain w-64 md:w-48 lg:w-64"
                   loading="lazy"
+                  // max-w-full
                 />
               </div>
 
@@ -87,9 +89,6 @@ const AlbumSongData = () => {
                   <p>
                     <strong>Number of Songs:</strong> {albumData.song}
                   </p>
-                  <p>
-                    <strong>Total Duration:</strong> {albumData.duration}
-                  </p>
                 </div>
               </div>
             </div>
@@ -98,8 +97,10 @@ const AlbumSongData = () => {
       </div>
 
       {/* Songs Table Section */}
-      <div className="relative overflow-x-auto">
-        <table className="min-w-full text-lg text-left text-gray-300">
+      <div className="relative ">
+        {" "}
+        {/* overflow-x-auto*/}
+        <table className=" w-[900px] max-w-[1200px] m-auto text-lg text-left text-gray-300">
           <thead>
             <tr className="text-md text-gray-500 uppercase">
               <th scope="col" className="px-6 py-3">
@@ -111,11 +112,15 @@ const AlbumSongData = () => {
               <th scope="col" className="px-6 py-3 hidden sm:table-cell">
                 Date Added
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className=" py-3">
                 Duration
               </th>
-              <th>Favourite</th>
-              <th>Status</th>
+              <th scope="col" className="">
+                Favourite
+              </th>
+              <th scope="col" className="">
+                Status
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -154,10 +159,16 @@ const AlbumSongData = () => {
                       onClick={() => handleAddToFavorite(track)} // Add to favorite
                       className="rounded-lg text-white-50 transition-all duration-300"
                     >
-                      {isFavourite(track.id) ? <HeartPulse /> : <Heart />}
+                      {isFavourite(track.id) ? (
+                        <IoMdHeart className="h-8 w-7" />
+                      ) : (
+                        <Heart />
+                      )}
                     </button>
                   </td>
-                  <td>{currentSong?.id === track.id ? <Pause /> : <Play />}</td>
+                  <td scope="col" className="pl-5">
+                    {currentSong?.id === track.id ? <Pause /> : <Play />}
+                  </td>
                 </tr>
               ))
             ) : (
