@@ -2,7 +2,7 @@
 .sound input[type="range"] {
   -webkit-appearance: none; /* Remove default styling */
   appearance: none;
-  width: 150px; /* Slider width */
+  width: 100px; /* Slider width */
   height: 8px; /* Slider track height */
   background: linear-gradient(
     to right,
