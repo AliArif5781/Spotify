@@ -1,4 +1,4 @@
-import { Globe, ChevronRight, ChevronLeft } from "lucide-react";
+import { Globe, ChevronLeft, Menu } from "lucide-react";
 import { useEffect, useState } from "react";
 import PlayListData from "./PlayListData";
 import { albumsData } from "../../assets/assets";
@@ -53,12 +53,12 @@ const PlayListSection = () => {
     <div>
       {/* Toggle Button */}
       <div
-        className={`absolute top-1/4 -translate-y-1/2 left-4 z-20 cursor-pointer ${
+        className={`absolute top-10 -translate-y-1/2 left-4 z-20 cursor-pointer ${
           isLeftSectionVisible ? "hidden" : "block"
         }`}
         onClick={toggleLeftSection}
       >
-        <ChevronRight className="h-8 w-8 text-white" />
+        <Menu className="h-8 w-8 text-white" />
       </div>
 
       <div className="section flex bg-black-200">
