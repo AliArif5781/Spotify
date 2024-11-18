@@ -15,8 +15,8 @@ const PlayListSection = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log("albumsdata", albumsData);
-  console.log(isPlaying);
+  // console.log("albumsdata", albumsData);
+  // console.log(isPlaying);
 
   const toggleLeftSection = () => {
     setIsLeftSectionVisible(!isLeftSectionVisible);
@@ -160,6 +160,7 @@ const PlayListSection = () => {
               </button>
             </div>
           </div>
+          {isPlaying ? "" : ""}
         </div>
 
         {/* Right Section */}
