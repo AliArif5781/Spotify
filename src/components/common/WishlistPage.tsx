@@ -16,11 +16,11 @@ const WishlistPage = () => {
   };
 
   return (
-    <div className="p-6 h-dvh w-[900px] max-w-[1200px] m-auto bg-black-100  pb-[100px] overflow-auto">
+    <div className="p-6 h-dvh lg:max-w-[1200px] m-auto bg-black-100  pb-[100px] overflow-x-auto">
       <h1 className="text-3xl text-white font-bold mb-6">Favorite Songs</h1>
 
       <div className="relative ">
-        <table className="w-[900px] max-w-[1200px] m-auto text-lg text-left text-gray-300">
+        <table className="lg:max-w-[1200px] m-auto text-lg text-left text-gray-300">
           <thead>
             <tr className="text-md text-gray-500 uppercase">
               <th scope="col" className="px-6 py-3">
