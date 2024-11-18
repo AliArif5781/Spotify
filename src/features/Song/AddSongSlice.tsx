@@ -6,8 +6,8 @@ interface SongData {
   selectSong: SongDAta | null;
   SavedSong: SongDAta | null;
   favouritesong: SongDAta[];
-  // currentSong: SongDAta | null; // Track current playing song
-  // isPlaying: boolean; // Track playing state
+  skipToPrevious: SongDAta | null;
+  currentSongIndex: number;
 }
 const savedFavouriteSong = localStorage.getItem("favouriteSong");
 const initialState: SongData = {
@@ -15,8 +15,8 @@ const initialState: SongData = {
   selectSong: null,
   SavedSong: null,
   favouritesong: savedFavouriteSong ? JSON.parse(savedFavouriteSong) : [],
-  // currentSong: null,
-  // isPlaying: false,
+  skipToPrevious: null,
+  currentSongIndex: 0,
 };
 
 export const AddSong = createSlice({
@@ -25,6 +25,7 @@ export const AddSong = createSlice({
   reducers: {
     setAddSong: (state, action: PayloadAction<AlbimChart | null>) => {
       state.addSong = action.payload;
+      state.selectSong = null; ///
       // localStorage.setItem("PlayListData", JSON.stringify(action.payload));
       if (action.payload) {
         localStorage.setItem("PlayListData", JSON.stringify(action.payload));
@@ -65,12 +66,18 @@ export const AddSong = createSlice({
         JSON.stringify(state.favouritesong)
       );
     },
-    // setCurrentSong: (state, action: PayloadAction<SongDAta>) => {
-    //   state.currentSong = action.payload;
-    // },
-    // setPlaying: (state, action: PayloadAction<boolean>) => {
-    //   state.isPlaying = action.payload;
-    // },
+
+    SkipPrevious: (state, action: PayloadAction<SongDAta | null>) => {
+      // state.skipToPrevious = action.payload;
+      if (action.payload) {
+        state.skipToPrevious = action.payload;
+      } else {
+        state.skipToPrevious = null;
+      }
+    },
+    setCurrentSongIndex: (state, action: PayloadAction<number>) => {
+      state.currentSongIndex = action.payload;
+    },
   },
 });
 export const {
@@ -79,6 +86,8 @@ export const {
   SavedSongData,
   addFavouriteSong,
   removeFromFavourite,
+  SkipPrevious,
+  setCurrentSongIndex,
   // setCurrentSong,
   // setPlaying,
 } = AddSong.actions;
