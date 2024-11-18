@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../components/Layout/MainLayout";
-// import PlayListSection from "../components/common/PlayListSection";
 import PlayListSection from "../components/common/PlayListSection";
 import AlbumSongData from "../components/common/AlbumSongData";
 import WishlistPage from "../components/common/WishlistPage";
