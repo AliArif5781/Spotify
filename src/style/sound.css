@@ -3,7 +3,7 @@
   -webkit-appearance: none; /* Remove default styling */
   appearance: none;
   width: 100px; /* Slider width */
-  height: 8px; /* Slider track height */
+  height: 7px; /* Slider track height */
   background: linear-gradient(
     to right,
     #1db954 0%,
