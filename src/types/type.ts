@@ -6,6 +6,7 @@ export interface AlbimChart {
   name: string;
   type: string;
   song: number;
+  // song: SongDAta;
 }
 
 export interface SongDAta {
