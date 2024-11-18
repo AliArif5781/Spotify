@@ -97,10 +97,10 @@ const AlbumSongData = () => {
       </div>
 
       {/* Songs Table Section */}
-      <div className="relative overflow-x-auto ">
+      <div className="relative overflow-auto sm:overflow-hidden">
         {" "}
         {/* overflow-x-auto*/}
-        <table className=" lg:max-w-[1200px] m-auto text-lg text-left text-gray-300">
+        <table className="lg:w-[1200px] m-auto text-lg text-left text-gray-300">
           <thead>
             <tr className="text-md text-gray-500 uppercase">
               <th scope="col" className="px-6 py-3">
