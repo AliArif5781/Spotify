@@ -10,9 +10,9 @@ import {
 import { songsData } from "../../assets/assets";
 import img from "/Spotify_Primary_Logo.png";
 import "../../style/scroller.css";
-import { Heart, Play, Pause } from "lucide-react";
+import { Heart, Timer, Music } from "lucide-react";
 import { IoMdHeart } from "react-icons/io";
-
+import { TbMusicX } from "react-icons/tb";
 const AlbumSongData = () => {
   const dispatch = useDispatch();
 
@@ -55,7 +55,7 @@ const AlbumSongData = () => {
   };
 
   return (
-    <div className="rightSection h-[100%] w-[900px] max-w-[1200px] m-auto  pb-[100px] p-6 transition-all bg-black-100">
+    <div className="rightSection  h-[100%]  max-w-[1200px] m-auto  pb-[100px] p-6 transition-all bg-black-100">
       <div className="px-5 sm:py-9 grid grid-cols-1 sm:grid-cols-1">
         <div
           key={albumData.id}
@@ -97,10 +97,10 @@ const AlbumSongData = () => {
       </div>
 
       {/* Songs Table Section */}
-      <div className="relative ">
+      <div className="relative overflow-x-auto ">
         {" "}
         {/* overflow-x-auto*/}
-        <table className=" w-[900px] max-w-[1200px] m-auto text-lg text-left text-gray-300">
+        <table className=" lg:max-w-[1200px] m-auto text-lg text-left text-gray-300">
           <thead>
             <tr className="text-md text-gray-500 uppercase">
               <th scope="col" className="px-6 py-3">
@@ -112,11 +112,11 @@ const AlbumSongData = () => {
               <th scope="col" className="px-6 py-3 hidden sm:table-cell">
                 Date Added
               </th>
-              <th scope="col" className=" py-3">
-                Duration
+              <th scope="col" className="px-6 py-3">
+                <Timer />
               </th>
-              <th scope="col" className="">
-                Favourite
+              <th scope="col" className="px-6">
+                <Heart />
               </th>
               <th scope="col" className="">
                 Status
@@ -153,7 +153,7 @@ const AlbumSongData = () => {
                   <td className="px-6 py-4 hidden sm:table-cell">
                     {track.date}
                   </td>
-                  <td className="px-6 py-4">{track.duration}</td>
+                  <td className="px-6 py-4 ">{track.duration}</td>
                   <td className="px-6 py-4">
                     <button
                       onClick={() => handleAddToFavorite(track)} // Add to favorite
@@ -167,7 +167,7 @@ const AlbumSongData = () => {
                     </button>
                   </td>
                   <td scope="col" className="pl-5">
-                    {currentSong?.id === track.id ? <Pause /> : <Play />}
+                    {currentSong?.id === track.id ? <Music /> : <TbMusicX />}
                   </td>
                 </tr>
               ))
